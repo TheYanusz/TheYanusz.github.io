@@ -1,0 +1,65 @@
+body {
+    background: rgb(228,12,35);
+    background: linear-gradient(90deg, rgba(228,12,35,1) 0%, rgba(181,35,27,1) 35%, rgba(255,255,255,1) 100%); 
+}
+
+
+#main_container {
+    height: 820px;
+    width: 600px;
+    border-radius: 2%;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.75);
+    
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    padding: 30px 20px;
+    
+    font-family: 'Chivo Mono', monospace;
+    font-size: 20px;
+}
+
+#header {
+    height: 4%;
+    width: 50%;
+    margin: auto;
+    border-radius: 15px;
+    text-align: center;
+
+    backdrop-filter: blur(15.5px);
+    -webkit-backdrop-filter: blur(15.5px);
+    background: rgba(20, 107, 58, 0.75);
+    font-weight: bold;
+}
+
+#game {
+    display: block;
+    margin: 0 auto;
+    border-radius: 15px;
+    margin-left: 9%;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    background: rgba(248, 178, 51, 0.75);
+}
+
+#score {
+    height: 3%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#footer {
+    height: 3%;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+
+    border-radius: 15px;
+    background: rgba(187, 37, 40, 0.75);
+    font-weight: bold;
+
+}
