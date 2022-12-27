@@ -42,7 +42,7 @@ function keyUpHandler(e) {
     }
 }
 
-function drawBall() {
+function drawBall(ball_id) {
     //image.src = balls[Math.floor(Math.random()*balls.length)];
     
 
@@ -55,8 +55,21 @@ function drawBall() {
         
     //     ball_y -= speed;
     // }
-    
+
+    ball_x = Number(Math.random() * (canv.width - 70) + 70);
     ball.src = balls[Math.floor(Math.random() * balls.length)];
+
+    if ( (ball_y != canv.height || ball_y != canv.height - basket_h) ) {
+        ball_y += speed;
+    } else {
+        if (ball_y == canv.height - basket_h && ball_x == basket_x) {
+            score++;
+        } else if (ball_y == canv.height) {
+            drawBall();
+        }
+
+    }
+
     ctx.drawImage(ball, ball_x, ball_y, 70, 100);
 }
 
@@ -82,21 +95,22 @@ function update() {
         basket_x -= speed;
     }
 
-    if (ball_y == 100) {
-        ball.src = balls[Math.floor(Math.random() * balls.length)];
-        ball_x = Math.floor((Math.random() * (canv.width-70)) + 70)
-        while (ball_y != canv.height || ((ball_y != basket_y) || (ball_x != basket_x) )) {
-            ball_y += speed;
-        }
-    } else {
-        1;
-    }
+    // if (ball_y == 100) {
+    //     ball.src = balls[Math.floor(Math.random() * balls.length)];
+    //     ball_x = Math.floor((Math.random() * (canv.width-70)) + 70)
+    //     while (ball_y != canv.height || ((ball_y != basket_y) || (ball_x != basket_x) )) {
+    //         ball_y += speed;
+    //     }
+    // } else {
+    //     1;
+    // }
 }
 
 function draw() {
     ctx.clearRect(0, 0, canv.width, canv.height);
     drawBasket();
-    drawBall();
+    
+    setInterval(drawBall(1), 5000);
 
     score_output.innerHTML = score.toString();
 }
