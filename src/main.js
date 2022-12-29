@@ -7,6 +7,7 @@ const basketPath = "img/kosz.png";
 let basket_x = canv.width / 2 - 50;
 let basket_y = canv.height - 90;
 
+let DEBUGGING = false;
 
 const basket_w = 100;
 const basket_h = 90;
@@ -15,6 +16,7 @@ let isRightPressed = false;
 let isLeftPressed = false;
 
 const speed = 5;
+const ballSpeed = 10;
 
 let score = 0;
 
@@ -105,6 +107,24 @@ function update() {
 
 function draw() {
     ctx.clearRect(0, 0, canv.width, canv.height);
+
+    if (DEBUGGING) {
+        ctx.beginPath();
+
+        ctx.rect(ball_x, ball_y, 10, 10);
+        ctx.fillStyle = "FF0000";
+        ctx.fill();
+
+        ctx.closePath();
+
+        ctx.beginPath();
+
+        ctx.rect(basket_x, basket_y, 10, 10);
+        ctx.fillStyle = "FF0000";
+        ctx.fill();
+        
+        ctx.closePath();
+    }
     drawBasket();
     drawBall(manageBall());
     score_output.innerHTML = score.toString();
