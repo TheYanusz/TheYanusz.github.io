@@ -42,35 +42,23 @@ function keyUpHandler(e) {
     }
 }
 
-function drawBall(ball_id) {
-    //image.src = balls[Math.floor(Math.random()*balls.length)];
+function drawBall(_ballStatus) {
+    if (_ballStatus == "CATCHED") {
+        ball_x = Number(Math.random() * (canv.width - 70) + 70);
+        ball.src = balls[Math.floor(Math.random() * balls.length)];
+           
+        ctx.drawImage(ball, ball_x, ball_y, 70, 100);
+    } else if (_ballStatus == "SPAWN_NEW") {
+        ball_y = 0;
+        ball_x = Number(Math.random() * (canv.width - 70) + 70);
+        ball.src = balls[Math.floor(Math.random() * balls.length)];
     
-
-    // while (ball_y != canv.height) {
-    //     if (ball_x == basket_x && ball_y == basket_y) {
-    //         score++;
-    //         image.remove();
-    //         break;
-    //     }
         
-    //     ball_y -= speed;
-    // }
-
-    ball_x = Number(Math.random() * (canv.width - 70) + 70);
-    ball.src = balls[Math.floor(Math.random() * balls.length)];
-
-    if ( (ball_y != canv.height || ball_y != canv.height - basket_h) ) {
-        ball_y += speed;
-    } else {
-        if (ball_y == canv.height - basket_h && ball_x == basket_x) {
-            score++;
-        } else if (ball_y == canv.height) {
-            drawBall();
-        }
-
+        ctx.drawImage(ball, ball_x, ball_y, 70, 100);
+    
+    } else if (_ballStatus == "FALLING") {
+        ctx.drawImage(ball, ball_x, ball_y, 70, 100);
     }
-
-    ctx.drawImage(ball, ball_x, ball_y, 70, 100);
 }
 
 function isOnEdge() {
@@ -88,36 +76,44 @@ function drawBasket() {
     ctx.closePath();
 }
 
-function update() {
+function basketMovement() {
     if (isRightPressed && isOnEdge() != "right") {
         basket_x += speed;
     } else if (isLeftPressed && isOnEdge() != "left") {
         basket_x -= speed;
     }
+}
 
-    // if (ball_y == 100) {
-    //     ball.src = balls[Math.floor(Math.random() * balls.length)];
-    //     ball_x = Math.floor((Math.random() * (canv.width-70)) + 70)
-    //     while (ball_y != canv.height || ((ball_y != basket_y) || (ball_x != basket_x) )) {
-    //         ball_y += speed;
-    //     }
-    // } else {
-    //     1;
-    // }
+function manageBall() {
+    if (ball_y == canv.height && ball_x == basket_x) {
+        score++;
+        console.log("CATCHED");
+        return "CATCHED";
+    } else if (ball_y == canv.height) {
+        console.log("SPAWN_NEW");
+        return "SPAWN_NEW";
+    } else {
+        ball_y += speed;
+        console.log("FALLING");
+        return "FALLING";
+    }
+}
+
+function update() {
+    basketMovement();
 }
 
 function draw() {
     ctx.clearRect(0, 0, canv.width, canv.height);
     drawBasket();
-    
-    setInterval(drawBall(1), 5000);
-
+    drawBall(manageBall());
     score_output.innerHTML = score.toString();
 }
 
 function loop() {
     update();
     draw();
+    drawBall(213769); // Ale easter egg wtf
     requestAnimationFrame(loop);
 }
 
